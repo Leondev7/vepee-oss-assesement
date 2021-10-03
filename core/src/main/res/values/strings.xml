@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="title">Title: %s</string>
+    <string name="year">Year: %s</string>
+    <string name="director">Director: %s</string>
+    <string name="runtime">Runtime: %s</string>
+    <string name="loading_error">Loading error</string>
+    <string name="favorite">Favorite</string>
+    <string name="activity_label">Favorites</string>
+    <string name="search">Search</string>
+    <string name="data_loading_error">Data loading error</string>
+    <string name="btn_retry_text">RETRY</string>
+    <string name="favorites">Favorites</string>
+    <string name="movies">Movies</string>
+</resources>
