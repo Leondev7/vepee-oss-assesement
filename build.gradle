@@ -19,6 +19,8 @@ buildscript {
         dagger = '2.16'
         glide = '4.8.0'
         okhttp = '3.14.1'
+        room = '2.3.0'
+
     }
 
     repositories {
