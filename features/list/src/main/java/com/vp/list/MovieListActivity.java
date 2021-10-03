@@ -1,6 +1,8 @@
 package com.vp.list;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,6 +21,9 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class MovieListActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     private static final String IS_SEARCH_VIEW_ICONIFIED = "is_search_view_iconified";
 
+    private static final String CURRENT_QUERY = "current_query";
+    private String currentQuery = "Interview";
+
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingActivityInjector;
     private SearchView searchView;
@@ -31,11 +36,15 @@ public class MovieListActivity extends AppCompatActivity implements HasSupportFr
         setContentView(R.layout.activity_movie_list);
 
         if (savedInstanceState == null) {
+
+            ListFragment listFragment = new ListFragment();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, new ListFragment(), ListFragment.TAG)
+                    .replace(R.id.fragmentContainer, listFragment, ListFragment.TAG)
                     .commit();
+
         } else {
+            currentQuery = savedInstanceState.getString(CURRENT_QUERY);
             searchViewExpanded = savedInstanceState.getBoolean(IS_SEARCH_VIEW_ICONIFIED);
         }
     }
@@ -59,9 +68,11 @@ public class MovieListActivity extends AppCompatActivity implements HasSupportFr
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                currentQuery = newText;
                 return false;
             }
         });
+        searchView.setQuery(currentQuery,false);
 
         return true;
     }
@@ -70,10 +81,12 @@ public class MovieListActivity extends AppCompatActivity implements HasSupportFr
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(IS_SEARCH_VIEW_ICONIFIED, searchView.isIconified());
+        outState.putString(CURRENT_QUERY, currentQuery);
     }
 
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return dispatchingActivityInjector;
     }
+
 }
