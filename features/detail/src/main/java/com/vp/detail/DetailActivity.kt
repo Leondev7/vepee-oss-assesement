@@ -17,6 +17,7 @@ class DetailActivity : DaggerAppCompatActivity(), QueryProvider {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
@@ -36,7 +37,7 @@ class DetailActivity : DaggerAppCompatActivity(), QueryProvider {
     }
 
     override fun getMovieId(): String {
-        return intent?.data?.getQueryParameter("imdbID") ?: run {
+        return  intent?.extras?.getString("imdbID") ?: run {
             throw IllegalStateException("You must provide movie id to display details")
         }
     }
