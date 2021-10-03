@@ -1,5 +1,6 @@
 package com.vp.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+
+import com.vp.detail.DetailActivity;
+import com.vp.favorites.FavoritesActivity;
 
 import javax.inject.Inject;
 
@@ -75,6 +79,21 @@ public class MovieListActivity extends AppCompatActivity implements HasSupportFr
         searchView.setQuery(currentQuery,false);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.favorites) {
+            navigateToFavorites();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void navigateToFavorites(){
+        Intent navigateToFavorites = new Intent(this, FavoritesActivity.class);
+        startActivity(navigateToFavorites);
     }
 
     @Override
